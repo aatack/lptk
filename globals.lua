@@ -1,16 +1,24 @@
 local basetostring = tostring
 
-tostring = function(value)
+tostring = function(value, indent)
+  local indent = indent or 0
+  local space = string.rep(" ", indent * 2)
+
   if type(value) == "table" then
     local result = "{"
     local first = true
 
     for key, value in pairs(value) do
-      if not first then result = result .. ", " end
-      result = result .. basetostring(key) .. " = " .. tostring(value)
+      if not first then
+        result = result .. ","
+      end
+      result = (
+        result .. "\n  " .. space .. basetostring(key) ..
+        " = " .. tostring(value, indent + 1)
+      )
       first = false
     end
-    return result .. "}"
+    return result .. ",\n" .. space .. "}"
   else
     return basetostring(value)
   end
