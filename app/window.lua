@@ -2,10 +2,22 @@ require "globals"
 
 return class {
   __init = function(self, width, height)
-    self.width = width or 500
-    self.height = height or 500
+    self.width = width or 0
+    self.height = height or 0
 
     self.time = 0.0
+
+    function love.load()
+      love.window.setMode(self.width, self.height, {resizable = true})
+    end
+    
+    function love.update(step)
+      self:onstep(step)
+    end
+    
+    function love.draw()
+      self:ondraw()
+    end
   end,
 
   ondraw = function(self)
