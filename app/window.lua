@@ -12,6 +12,8 @@ return class {
     self.heldkeys = {}
     self.heldbuttons = {}
 
+    self.camera = require "app.camera"()
+
     function love.load()
       love.window.setMode(self.width, self.height, {resizable = true})
     end
@@ -56,7 +58,7 @@ return class {
       x = x - 100
     end
 
-    love.graphics.circle("fill", x, 300, 50, 100)
+    self.camera:circle({x = x, y = 100}, 50)
   end,
 
   onstep = function(self, step)
