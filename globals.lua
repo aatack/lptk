@@ -13,7 +13,7 @@ tostring = function(value, indent)
       if v ~= value then
         if not first then result = result .. "," end
         result = (
-            result .. "\n  " .. space .. basetostring(v) ..
+            result .. "\n  " .. space .. basetostring(k) ..
             " = " .. tostring(v, indent + 1)
         )
         first = false
