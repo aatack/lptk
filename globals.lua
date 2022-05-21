@@ -1,6 +1,7 @@
 local basetostring = tostring
 
 tostring = function(value, indent)
+
   local indent = indent or 0
   local space = string.rep(" ", indent * 2)
 
@@ -8,15 +9,15 @@ tostring = function(value, indent)
     local result = "{"
     local first = true
 
-    for key, value in pairs(value) do
-      if not first then
-        result = result .. ","
+    for k, v in pairs(value) do
+      if v ~= value then
+        if not first then result = result .. "," end
+        result = (
+            result .. "\n  " .. space .. basetostring(v) ..
+            " = " .. tostring(v, indent + 1)
+        )
+        first = false
       end
-      result = (
-        result .. "\n  " .. space .. basetostring(key) ..
-        " = " .. tostring(value, indent + 1)
-      )
-      first = false
     end
     return result .. ",\n" .. space .. "}"
   else
