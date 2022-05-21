@@ -39,6 +39,14 @@ return class {
     function love.mousereleased(x, y, button)
       self:onclick(x, y, button, false)
     end
+
+    function love.mousemoved(x, y, dx, dy)
+      self:ondrag({x = x - dx, y = y - dy}, {x = x, y = y}, {x = dx, y = dy})
+    end
+
+    function love.wheelmoved(x, y)
+      self:onscroll(y > 0)
+    end
   end,
 
   ondraw = function(self)
@@ -64,6 +72,10 @@ return class {
   end,
 
   ondrag = function(self, old, new, change)
-
+    
   end,
+
+  onscroll = function(self, up)
+
+  end
 }
