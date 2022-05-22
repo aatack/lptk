@@ -58,7 +58,7 @@ return class {
       x = x - 100
     end
 
-    self.camera:circle({x = x, y = 100}, 50)
+    self.camera:rectangle({x = x, y = 100}, {x = x + 200, y = 200})
   end,
 
   onstep = function(self, step)
