@@ -15,7 +15,9 @@ return class {
     self.camera = require "app.camera"()
 
     function love.load()
-      love.window.setMode(self.width, self.height, {resizable = true})
+      if self.width ~= 800 or self.height ~= 600 then
+        love.window.setMode(self.width, self.height, {resizable = true})
+      end
     end
     
     function love.update(step)
