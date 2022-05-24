@@ -39,8 +39,14 @@ class = function(members)
     members.__init = nil
 
     members.__index = members
-
+    
     local metatable = {}
+    
+    if members.__base then
+      -- setmetatable(metatable, members.__base)
+      metatable.__index = members.__base
+    end
+
     function metatable.__call(self, ...)
         local arg = {...}
 
