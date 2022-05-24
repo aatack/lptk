@@ -27,6 +27,15 @@ end
 
 class = function(members)
     local __init = members.__init
+
+    if not __init then
+      __init = function(self, instancemembers)
+        for k, v in pairs(instancemembers) do
+          self[k] = v
+        end
+      end
+    end
+
     members.__init = nil
 
     members.__index = members
