@@ -43,7 +43,6 @@ class = function(members)
     local metatable = {}
     
     if members.__base then
-      -- setmetatable(metatable, members.__base)
       metatable.__index = members.__base
     end
 
