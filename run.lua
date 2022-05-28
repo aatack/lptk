@@ -2,4 +2,8 @@ utils = require "globals"
 Window = require "app.window"
 
 
-local window = Window(800, 600)
+local window = class {
+  __base = Window,
+}
+
+window(800, 600)
