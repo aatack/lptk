@@ -1,6 +1,6 @@
 require "globals"
 
-return class {
+Camera = class {
   __init = function(self) end,
 
   circle = function(self, centre, radius, segments)

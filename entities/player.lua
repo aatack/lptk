@@ -1,8 +1,8 @@
 require "globals"
 
-return class {
+Player = class {
   __init = function(self)
-    self.position = { x= 0.0, y = 0.0}
+    self.position = {x = 0.0, y = 0.0}
   end,
 
   onstep = function(self, window, step)
