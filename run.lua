@@ -1,7 +1,7 @@
 require "globals"
 
 local Window = require "app.window"
-local Entity = require "app.entity"
+local Player = require "entities.player"
 
 
-Window(800, 600):run(Entity())
+Window(800, 600):run(Player())
