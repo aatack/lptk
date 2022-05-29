@@ -29,6 +29,10 @@ class = function(members)
     local __init = members.__init
 
     if not __init then
+      -- TODO: reorder this function a bit to avoid the ugly nested
+      --       if statements (caused by the superclass' constructor
+      --       not yet being available when we check whether the new
+      --       constructor is nil)
       if members.__base then
         __init = members.__base.__init
       else
