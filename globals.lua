@@ -29,14 +29,18 @@ class = function(members)
     local __init = members.__init
 
     if not __init then
-      __init = function(self, instancemembers)
-        for k, v in pairs(instancemembers) do
-          self[k] = v
+      if members.__base then
+        __init = members.__base.__init
+      else
+        __init = function(self, instancemembers)
+          for k, v in pairs(instancemembers) do
+            self[k] = v
+          end
         end
       end
     end
 
-    members.__init = nil
+    members.__init = __init
 
     members.__index = members
     
