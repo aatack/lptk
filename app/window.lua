@@ -12,7 +12,7 @@ return class {
 
     function love.load()
       if self.width ~= 800 or self.height ~= 600 then
-        love.window.setMode(self.width, self.height, {resizable = true})
+        love.window.setMode(self.width, self.height, { resizable = true })
       end
     end
   end,
@@ -24,12 +24,15 @@ return class {
       self.time = self.time + step
       entity:onstep(step)
     end
-    
+
     function love.draw()
       entity:ondraw()
     end
 
     function love.keypressed(key)
+      if key == "escape" then
+        love.event.quit()
+      end
       self.heldkeys[key] = true
       entity:onkey(key, true)
     end
@@ -50,7 +53,7 @@ return class {
     end
 
     function love.mousemoved(x, y, dx, dy)
-      entity:ondrag({x = x - dx, y = y - dy}, {x = x, y = y}, {x = dx, y = dy})
+      entity:ondrag({ x = x - dx, y = y - dy }, { x = x, y = y }, { x = dx, y = dy })
     end
 
     function love.wheelmoved(x, y)
