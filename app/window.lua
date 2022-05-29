@@ -1,5 +1,3 @@
-local Camera = require "app.camera"
-
 return class {
   -- TODO: assert that only one window is ever created
 
@@ -12,8 +10,6 @@ return class {
     self.heldkeys = {}
     self.heldbuttons = {}
 
-    self.camera = Camera()
-    
     function love.load()
       if self.width ~= 800 or self.height ~= 600 then
         love.window.setMode(self.width, self.height, {resizable = true})

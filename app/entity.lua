@@ -10,7 +10,7 @@ return class {
       x = x - 100
     end
 
-    self.window.camera:rectangle({x = x, y = 100}, {x = x + 200, y = 200})
+    love.graphics.rectangle("fill", x, 100, 200, 200)
   end,
 
   onstep = function(self, step)
