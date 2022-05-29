@@ -1,7 +1,6 @@
-require "globals"
-require "app.camera"
+local Camera = require "app.camera"
 
-Window = class {
+return class {
   -- TODO: assert that only one window is ever created
 
   __init = function(self, width, height)

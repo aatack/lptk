@@ -1,6 +1,4 @@
-require "globals"
-
-Player = class {
+return class {
   __init = function(self)
     self.position = {x = 0.0, y = 0.0}
   end,

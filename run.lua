@@ -1,12 +1,7 @@
-utils = require "globals"
--- require "app.camera"
-require "app.window"
-require "app.entity"
+require "globals"
+
+local Window = require "app.window"
+local Entity = require "app.entity"
 
 
--- class { __base = Window } (800, 600)
-
-
-local window = Window(800, 600)
-window:run(Entity())
--- Window.run(window, Entity())
+Window(800, 600):run(Entity())

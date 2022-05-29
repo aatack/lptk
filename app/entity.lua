@@ -1,6 +1,4 @@
-require "globals"
-
-Entity = class {
+return class {
   __init = function(self)
     self.window = nil
   end,

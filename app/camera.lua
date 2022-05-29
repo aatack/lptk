@@ -1,6 +1,4 @@
-require "globals"
-
-Camera = class {
+return class {
   __init = function(self) end,
 
   circle = function(self, centre, radius, segments)
