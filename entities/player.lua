@@ -12,19 +12,30 @@ return class {
   end,
 
   onstep = function(self, step)
+    local movement = { x = 0, y = 0 }
     -- TODO: calculate the direction first
     if self.window.heldkeys["w"] then
-      self.position.y = self.position.y - (self.speed * step)
+      movement.y = movement.y - 1
     end
     if self.window.heldkeys["a"] then
-      self.position.x = self.position.x - (self.speed * step)
+      movement.x = movement.x - 1
     end
     if self.window.heldkeys["s"] then
-      self.position.y = self.position.y + (self.speed * step)
+      movement.y = movement.y + 1
     end
     if self.window.heldkeys["d"] then
-      self.position.x = self.position.x + (self.speed * step)
+      movement.x = movement.x + 1
     end
+
+    if movement.x ~= 0 and movement.y ~= 0 then
+      local factor = math.sqrt(2)
+      movement.x = movement.x / factor
+      movement.y = movement.y / factor
+    end
+
+    local change = self.speed * step
+    self.position.x = self.position.x + (movement.x * change)
+    self.position.y = self.position.y + (movement.y * change)
   end,
 
   ondraw = function(self)
