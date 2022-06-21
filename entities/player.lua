@@ -15,6 +15,8 @@ return class {
     self.speed = self.BASESPEED
 
     self.joystick = love.joystick.getJoysticks()[1]
+
+    self.resetvibrations = 0.0
   end,
 
   onstep = function(self, step)
@@ -25,8 +27,13 @@ return class {
       self.speed = self.BASESPEED
     end
 
-    local x, y = self.joystick:getAxes()
-    local movement = { x = x, y = y }
+    local inputs = { self.joystick:getAxes() }
+
+    if inputs[6] > 0 then -- Right trigger
+      self:onkey("space", true)
+    end
+
+    local movement = { x = inputs[1], y = inputs[2] }
     -- TODO: calculate the direction first
     if self.window.heldkeys["w"] then
       movement.y = movement.y - 1
@@ -54,10 +61,19 @@ return class {
     if math.abs(movement.y) > 0.3 then
       self.position.y = self.position.y + (movement.y * change)
     end
+
+    if self.resetvibrations > 0.0 then
+      self.resetvibrations = self.resetvibrations - step
+      if self.resetvibrations <= 0.0 then
+        self.joystick:setVibration(0.0, 0.0)
+      end
+    end
   end,
 
   onkey = function(self, key, down)
     if down and key == "space" and self.speed <= self.BASESPEED then
+      self.joystick:setVibration(0.4, 0.4)
+      self.resetvibrations = 0.3
       self.speed = self.speed + self.BOOSTSPEED
     end
   end,
