@@ -1,7 +1,7 @@
 local Entity = require "app.entity"
 
 return class {
-  BASESPEED = 200.0,
+  BASESPEED = 400.0,
   BOOSTSPEED = 600.0,
   BOOSTSLOW = 2500.0,
 
@@ -13,6 +13,8 @@ return class {
     self.position = { x = 0.0, y = 0.0 }
     self.size = 10
     self.speed = self.BASESPEED
+
+    self.joystick = love.joystick.getJoysticks()[1]
   end,
 
   onstep = function(self, step)
@@ -23,7 +25,8 @@ return class {
       self.speed = self.BASESPEED
     end
 
-    local movement = { x = 0, y = 0 }
+    local x, y = self.joystick:getAxes()
+    local movement = { x = x, y = y }
     -- TODO: calculate the direction first
     if self.window.heldkeys["w"] then
       movement.y = movement.y - 1
@@ -45,8 +48,12 @@ return class {
     end
 
     local change = self.speed * step
-    self.position.x = self.position.x + (movement.x * change)
-    self.position.y = self.position.y + (movement.y * change)
+    if math.abs(movement.x) > 0.3 then
+      self.position.x = self.position.x + (movement.x * change)
+    end
+    if math.abs(movement.y) > 0.3 then
+      self.position.y = self.position.y + (movement.y * change)
+    end
   end,
 
   onkey = function(self, key, down)
