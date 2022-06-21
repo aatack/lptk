@@ -23,6 +23,25 @@ local Context = class {
       end
     end
   end,
+
+  step = function(self)
+    local peon = nil
+    for queued, flag in pairs(self.queue) do
+      if flag then
+        peon = queued
+        break
+      end
+    end
+
+    if peon then
+      -- TODO: work out whether changes to other peons
+      --  need to be forced
+      self.queue[peon] = nil
+      _ = self.diff(peon)
+    else
+      return false
+    end
+  end,
 }
 
 local Peon = class {
@@ -31,7 +50,12 @@ local Peon = class {
   end,
 
   sync = function(self, timestamp)
-    local context = Context(timestamp, { self = true })
+    local queue = {}
+    queue[self] = true
+
+    local context = Context(timestamp, queue)
+
+    while context.step() do end
   end,
 
   use = function(self, peon, uses)

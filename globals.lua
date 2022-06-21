@@ -14,8 +14,8 @@ tostring = function(value, indent)
         if not first then result = result .. "," end
         result = (
             result .. "\n  " .. space .. basetostring(k) ..
-            " = " .. tostring(v, indent + 1)
-        )
+                " = " .. tostring(v, indent + 1)
+            )
         first = false
       end
     end
@@ -30,9 +30,9 @@ class = function(members)
 
   if not __init then
     -- TODO: reorder this function a bit to avoid the ugly nested
-    --       if statements (caused by the superclass' constructor
-    --       not yet being available when we check whether the new
-    --       constructor is nil)
+    --  if statements (caused by the superclass' constructor not
+    --  yet being available when we check whether the new
+    --  constructor is nil)
     if members.__base and members.__base.__init then
       __init = members.__base.__init
     else
@@ -47,22 +47,23 @@ class = function(members)
   members.__init = __init
 
   members.__index = members
-  
+
   local metatable = {}
-  
+
   if members.__base then
     metatable.__index = members.__base
   end
 
   function metatable.__call(self, ...)
-      local arg = {...}
+    local arg = { ... }
 
-      local instance = {}
-      setmetatable(instance, members)
-      __init(instance, unpack(arg))
-      
-      return instance
+    local instance = {}
+    setmetatable(instance, members)
+    __init(instance, unpack(arg))
+
+    return instance
   end
+
   setmetatable(members, metatable)
 
   return members
